@@ -3,7 +3,7 @@ import math
 
 def get_coordinates(airport_code, airport_df):
     # Get latitude and longitude for given airport code
-    row = airport_df[airport_df['iata_code'] == airport_code].iloc[0]
+    row = airport_df[airport_df['ident'] == airport_code].iloc[0]
     return row['latitude_deg'], row['longitude_deg']
 
 def get_flight_coordinates(row, airport_df):
