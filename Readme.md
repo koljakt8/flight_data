@@ -14,6 +14,12 @@ python -m venv .venv
 ```bash
 pip install -r requirements.txt
 ```
+## Create a folder with both the csv files in it
+
+### Folder and filenames
+* Folder name should be "data"
+* personal csv should be named "kolj2.csv"
+* general csv should be named "airports.csv"
 
 ## Start streamlit app
 ```python
