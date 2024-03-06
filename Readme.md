@@ -1,8 +1,8 @@
 # Instructions to host the App
 
-## venv
+## venv (open the terminal and paste the following)
 
-### Create a venv
+### Create a venv 
 ```bash	
 python -m venv .venv
 ```
