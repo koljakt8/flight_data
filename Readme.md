@@ -18,8 +18,8 @@ pip install -r requirements.txt
 
 ### Folder and filenames
 * Folder name should be "data"
-* personal csv should be named "kolj2.csv"
-* general csv should be named "airports.csv"
+* personal csv should be named "personal_flight_data.csv"
+    * the "personal_flight_data.csv" should follow the same structure as the "example.csv" (the empty fields will be filled out after starting the app)
 
 ## Start streamlit app
 ```python

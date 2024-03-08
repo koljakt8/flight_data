@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 import folium
 st.set_option('deprecation.showPyplotGlobalUse', False)
 #df = pd.read_csv("data/own.csv")
-df=pd.read_csv("data/kolj2.csv")
+df=pd.read_csv("data/personal_flight_data.csv")
 airport_df = pd.read_csv("data/airports.csv")
+updates_made = False
 if df["distance"].isnull().any():
     df[['origin_lat', 'origin_lng', 'destination_lat', 'destination_lng']] = df.apply(lambda row: get_flight_coordinates(row, airport_df), axis=1, result_type='expand')
     for index, row in df.iterrows():
@@ -16,21 +17,24 @@ if df["distance"].isnull().any():
             lat1, lon1, lat2, lon2 = row['origin_lat'], row['origin_lng'], row['destination_lat'], row['destination_lng']
             if pd.notnull(lat1) and pd.notnull(lon1) and pd.notnull(lat2) and pd.notnull(lon2):
                 df.at[index, 'distance'] = calculate_distance(lat1, lon1, lat2, lon2)
-                df.to_csv("data/kolj2.csv", index=False)
+                updates_made = True
+                #df.to_csv("data/personal_flight_data.csv", index=False)
 ## update origin link if necessary
 if df["origin_link"].isnull().any():
     update_links(df, airport_df, origin_col="origin", link_col="origin_link", second_origin_col="ident", second_link_col="home_link")
-    df.to_csv("data/kolj2.csv", index=False)
+    updates_made = True
 if df["destination_link"].isnull().any():
     update_links(df, airport_df, origin_col="destination", link_col="destination_link", second_origin_col="ident", second_link_col="home_link")
-    df.to_csv("data/kolj2.csv", index=False)
+    updates_made = True
 if df["origin_wikipedia_link"].isnull().any():
     update_links(df, airport_df, origin_col="origin", link_col="origin_wikipedia_link", second_origin_col="ident", second_link_col="wikipedia_link")
-    df.to_csv("data/kolj2.csv", index=False)
+    updates_made = True
 if df["destination_wikipedia_link"].isnull().any():
     update_links(df, airport_df, origin_col="destination", link_col="destination_wikipedia_link", second_origin_col="ident", second_link_col="wikipedia_link")
-    df.to_csv("data/kolj2.csv", index=False)
+    updates_made = True
 
+if updates_made:
+    df.to_csv("data/personal_flight_data.csv", index=False)
 print(df)
 
 
@@ -165,7 +169,7 @@ if selection == "Add Data":
         df = add_row_to_dataframe(df, new_row)
         #st.write("New flight added:", new_row)
         #st.write("All flights:", df)
-        df.to_csv("data/kolj2.csv", index=False)
+        df.to_csv("data/personal_flight_data.csv", index=False)
         st.success("successfully uploaded new data")
 
 
