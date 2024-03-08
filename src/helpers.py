@@ -8,7 +8,7 @@ def get_coordinates(airport_code, airport_df):
     return row['latitude_deg'], row['longitude_deg']
 
 def get_flight_coordinates(row, airport_df):
-    origin_code = row['origin']  # Assuming column names for simplicity
+    origin_code = row['origin'] 
     destination_code = row['destination']
     
     origin_lat, origin_lng = get_coordinates(origin_code, airport_df)
@@ -20,7 +20,7 @@ def update_links(own_df, second_df, origin_col='origin', link_col='origin_link',
     for index, row in own_df.iterrows():
         origin = row[origin_col]
         link = row[link_col]
-        if pd.isna(link):  # Check if link is NaN or empty
+        if pd.isna(link): 
             try:
                 second_row = second_df[(second_df[second_origin_col] == origin) & (~second_df[second_link_col].isna())]
                 link_value = second_row.iloc[0][second_link_col]
@@ -31,7 +31,6 @@ def update_links(own_df, second_df, origin_col='origin', link_col='origin_link',
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two points on the Earth."""
-    # Convert latitude and longitude from degrees to radians
     lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
     
     # Haversine formula
@@ -39,7 +38,7 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     dlon = lon2 - lon1
     a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
     c = 2 * math.asin(math.sqrt(a))
-    r = 6371 # Radius of Earth in kilometers
+    r = 6371 
     return c * r
 
 
@@ -67,6 +66,4 @@ def most_common_value(df, column_name):
     return most_common_value, frequency
 
 if __name__ == "__main__":
-    # Code that should only be executed when the script is run directly
-    # This could include test code, demonstration code, etc.
     pass

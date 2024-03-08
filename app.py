@@ -77,27 +77,22 @@ if selection=="Overview":
 
 
 if selection == "Map":
-    # Your code to display the map
     st.title('Map')
     m = folium.Map(location=[df['origin_lat'].mean(), df['origin_lng'].mean()], zoom_start=2)
 
-    # Add lines and markers for each origin-destination pair
     for _, row in df.iterrows():
-        # Origin marker
         folium.Marker(
             location=[row['origin_lat'], row['origin_lng']],
             icon=folium.Icon(color='blue', icon='plane-departure'),
             popup='Origin'
         ).add_to(m)
         
-        # Destination marker
         folium.Marker(
             location=[row['destination_lat'], row['destination_lng']],
-            icon=folium.Icon(color='green', icon='plane-arrival'),
+            icon=folium.Icon(color='blue', icon='plane-arrival'),
             popup='Destination'
         ).add_to(m)
         
-        # Line connecting origin and destination
         folium.PolyLine(
             locations=[
                 [row['origin_lat'], row['origin_lng']],
@@ -106,7 +101,6 @@ if selection == "Map":
             color='red'
         ).add_to(m)
 
-    # Assuming `m` is your folium Map object from previous examples
     st_folium(m, width=725, height=500)
 
 
@@ -115,10 +109,8 @@ if selection=="More Statistics":
     origin_counts = df['origin'].value_counts()
     destination_counts = df['destination'].value_counts()
 
-    # Create two columns layout
     col1, col2 = st.columns(2)
 
-    # Display the bar chart for origin values in the first column
     with col1:
         st.subheader("Distribution of Origin Airports")
         plt.bar(origin_counts.index, origin_counts.values, color='blue')
@@ -128,7 +120,6 @@ if selection=="More Statistics":
         plt.yticks(range(0, max(origin_counts.values) + 1, 1)) 
         st.pyplot()
 
-    # Display the bar chart for destination values in the second column
     with col2:
         st.subheader("Distribution of Destination Airports")
         plt.bar(destination_counts.index, destination_counts.values, color='red')
