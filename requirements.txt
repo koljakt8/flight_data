@@ -1,3 +1,4 @@
 pandas
 streamlit==1.31.0
 streamlit-option-menu==0.3.12
+folium

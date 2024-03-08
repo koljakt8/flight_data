@@ -1,6 +1,7 @@
 import pandas as pd
 import math
 
+
 def get_coordinates(airport_code, airport_df):
     # Get latitude and longitude for given airport code
     row = airport_df[airport_df['ident'] == airport_code].iloc[0]
@@ -15,6 +16,18 @@ def get_flight_coordinates(row, airport_df):
     
     return origin_lat, origin_lng, destination_lat, destination_lng
 
+def update_links(own_df, second_df, origin_col='origin', link_col='origin_link', second_origin_col='ident', second_link_col='home_link'):
+    for index, row in own_df.iterrows():
+        origin = row[origin_col]
+        link = row[link_col]
+        if pd.isna(link):  # Check if link is NaN or empty
+            try:
+                second_row = second_df[(second_df[second_origin_col] == origin) & (~second_df[second_link_col].isna())]
+                link_value = second_row.iloc[0][second_link_col]
+                own_df.at[index, link_col] = link_value
+            except IndexError:
+                own_df.at[index, link_col] = "kein link verfügbar"
+    return own_df
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two points on the Earth."""
