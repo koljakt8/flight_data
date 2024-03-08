@@ -163,8 +163,8 @@ if selection == "Add Data":
             "Destination Address": destination_address
         }
         df = add_row_to_dataframe(df, new_row)
-        st.write("New flight added:", new_row)
-        st.write("All flights:", df)
+        #st.write("New flight added:", new_row)
+        #st.write("All flights:", df)
         df.to_csv("data/kolj2.csv", index=False)
         st.success("successfully uploaded new data")
 
