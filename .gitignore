@@ -2,5 +2,5 @@ venv
 .venv
 env
 .env
-data/
+data/kolj2.csv
 test.ipynb
