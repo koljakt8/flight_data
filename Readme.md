@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ## Start streamlit app
 ```python
-streamlit run app.py --theme.base dark
+streamlit run app(2.1).py --theme.base dark
 ```
 
 
